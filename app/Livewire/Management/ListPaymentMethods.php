@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Management;
 
-use App\Models\Customer;
 use App\Models\PaymentMethod;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
@@ -22,8 +21,8 @@ use Livewire\Component;
 class ListPaymentMethods extends Component implements HasActions, HasSchemas, HasTable
 {
     use InteractsWithActions;
-    use InteractsWithTable;
     use InteractsWithSchemas;
+    use InteractsWithTable;
 
     public function table(Table $table): Table
     {
@@ -48,9 +47,14 @@ class ListPaymentMethods extends Component implements HasActions, HasSchemas, Ha
                 //
             ])
             ->headerActions([
-                //
+                Action::make('create')
+                    ->label('Add New')
+                    ->url(fn (): string => route('payment-methods.create')),
             ])
             ->recordActions([
+                Action::make('edit')
+                    ->url(fn (PaymentMethod $record): string => route('payment-methods.edit', $record)),
+
                 Action::make('delete')
                     ->requiresConfirmation()
                     ->action(fn (PaymentMethod $record) => $record->delete())

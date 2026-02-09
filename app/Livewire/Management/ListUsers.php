@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Management;
 
-use App\Models\PaymentMethod;
 use App\Models\User;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
@@ -22,8 +21,8 @@ use Livewire\Component;
 class ListUsers extends Component implements HasActions, HasSchemas, HasTable
 {
     use InteractsWithActions;
-    use InteractsWithTable;
     use InteractsWithSchemas;
+    use InteractsWithTable;
 
     public function table(Table $table): Table
     {
@@ -43,9 +42,14 @@ class ListUsers extends Component implements HasActions, HasSchemas, HasTable
                 //
             ])
             ->headerActions([
-                //
+                Action::make('create')
+                    ->label('Add New')
+                    ->url(fn (): string => route('users.create')),
             ])
             ->recordActions([
+                Action::make('edit')
+                    ->url(fn (User $record): string => route('users.edit', $record)),
+
                 Action::make('delete')
                     ->requiresConfirmation()
                     ->action(fn (User $record) => $record->delete())

@@ -2,6 +2,8 @@ import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import tailwindcss from "@tailwindcss/vite";
 
+const host = 'laravel-pos-project.test';
+
 export default defineConfig({
     plugins: [
         laravel({
@@ -11,6 +13,8 @@ export default defineConfig({
         tailwindcss(),
     ],
     server: {
+        host,
+        hmr: { host },
         cors: true,
         watch: {
             ignored: ['**/storage/framework/views/**'],

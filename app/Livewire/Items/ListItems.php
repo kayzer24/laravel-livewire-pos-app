@@ -32,18 +32,25 @@ class ListItems extends Component implements HasActions, HasSchemas, HasTable
                 TextColumn::make('name')->searchable()->sortable(),
                 TextColumn::make('sku')->label('SKU')->searchable()->sortable(),
                 TextColumn::make('price')->money('EUR', locale: 'fr')->searchable()->sortable(),
-                TextColumn::make('status')->badge()->searchable()->sortable(),
+                TextColumn::make('inventory.quantity')->badge()->color(fn ($state): string => $state > 9 ? 'success' : 'warning')
+                    ->default(0),
+                TextColumn::make('status')
+                    ->badge()
+                    ->searchable()
+                    ->color(fn ($state): string => $state === 'active' ? 'success' : 'danger')
+                    ->sortable(),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                //
+                Action::make('create')
+                    ->label('Add New')
+                    ->url(fn (): string => route('items.create')),
             ])
             ->recordActions([
-                //                Action::make('edit')
-                //                    ->url(fn (Item $record): string => route('items.edit', $record))
-                //                    ->openUrlInNewTab(),
+                Action::make('edit')
+                    ->url(fn (Item $record): string => route('items.edit', $record)),
 
                 Action::make('delete')
                     ->requiresConfirmation()
