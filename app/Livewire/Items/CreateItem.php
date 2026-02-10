@@ -13,6 +13,7 @@ use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Schemas\Schema;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Config;
 use Livewire\Component;
 
 class CreateItem extends Component implements HasActions, HasSchemas
@@ -47,7 +48,7 @@ class CreateItem extends Component implements HasActions, HasSchemas
                             ->required()
                             ->placeholder('129.99')
                             ->numeric()
-                            ->prefix('€'),
+                            ->prefix(Config::get('app.currency')),
                         ToggleButtons::make('status')
                             ->options([
                                 'active' => 'Active',

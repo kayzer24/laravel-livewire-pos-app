@@ -16,6 +16,7 @@ use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Config;
 use Livewire\Component;
 
 class ListItems extends Component implements HasActions, HasSchemas, HasTable
@@ -31,7 +32,7 @@ class ListItems extends Component implements HasActions, HasSchemas, HasTable
             ->columns([
                 TextColumn::make('name')->searchable()->sortable(),
                 TextColumn::make('sku')->label('SKU')->searchable()->sortable(),
-                TextColumn::make('price')->money('EUR', locale: 'fr')->searchable()->sortable(),
+                TextColumn::make('price')->money(Config::get('app.currency'), locale: 'en')->searchable()->sortable(),
                 TextColumn::make('inventory.quantity')->badge()->color(fn ($state): string => $state > 9 ? 'success' : 'warning')
                     ->default(0),
                 TextColumn::make('status')

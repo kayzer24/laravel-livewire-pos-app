@@ -17,6 +17,7 @@ use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Config;
 use Livewire\Component;
 
 class ListSales extends Component implements HasActions, HasSchemas, HasTable
@@ -31,17 +32,23 @@ class ListSales extends Component implements HasActions, HasSchemas, HasTable
             ->query(fn (): Builder => Sale::query())
             ->columns([
                 TextColumn::make('customer.name')
+                    ->label('Customers')
                     ->searchable(),
+                TextColumn::make('saleItems.item.name')
+                    ->label('Items')
+                    ->bulleted()
+                    ->limitList(2)
+                    ->expandableLimitedList(),
                 TextColumn::make('paymentMethod.name')
                     ->searchable(),
                 TextColumn::make('total')
-                    ->numeric()
+                    ->money(Config::get('app.currency'), locale: 'en')
                     ->sortable(),
                 TextColumn::make('paid_amount')
-                    ->numeric()
+                    ->money(Config::get('app.currency'), locale: 'en')
                     ->sortable(),
                 TextColumn::make('discount')
-                    ->numeric()
+                    ->money(Config::get('app.currency'), locale: 'en')
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
@@ -62,7 +69,7 @@ class ListSales extends Component implements HasActions, HasSchemas, HasTable
             ])
             ->recordActions([
                 Action::make('edit')
-                    ->url(fn (Sale $record): string => route('users.edit', $record)),
+                    ->url(fn (Sale $record): string => route('sales.edit', $record)),
 
                 Action::make('delete')
                     ->requiresConfirmation()

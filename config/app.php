@@ -15,6 +15,9 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'currency' => env('DEFAULT_CURRENCY', 'eur'),
+    'tax_rate' => env('TAX_RATE', 0),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

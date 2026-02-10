@@ -6,17 +6,14 @@ use App\Models\Item;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Notifications\Notification;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Schemas\Schema;
-use Filament\Support\RawJs;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Number;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Config;
 use Livewire\Component;
 
 class EditItem extends Component implements HasActions, HasSchemas
@@ -54,7 +51,7 @@ class EditItem extends Component implements HasActions, HasSchemas
                             ->required()
                             ->numeric()
                             ->inputMode('decimal')
-                            ->prefix('€'),
+                            ->prefix(Config::get('app.currency')),
                         ToggleButtons::make('status')
                             ->options([
                                 'active' => 'Active',

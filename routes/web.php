@@ -15,6 +15,7 @@ use App\Livewire\Management\EditPaymentMethod;
 use App\Livewire\Management\EditUser;
 use App\Livewire\Management\ListPaymentMethods;
 use App\Livewire\Management\ListUsers;
+use App\Livewire\POS;
 use App\Livewire\Sales\CreateSale;
 use App\Livewire\Sales\EditSale;
 use App\Livewire\Sales\ListSales;
@@ -58,6 +59,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/manage-sales', ListSales::class)->name('sales.index');
     Route::get('/sales/create', CreateSale::class)->name('sales.create');
     Route::get('/sales/{record}/edit', EditSale::class)->name('sales.edit');
+
+    /* POS */
+    Route::get('/pos', POS::class)->name('pos');
 });
 
 require __DIR__.'/settings.php';

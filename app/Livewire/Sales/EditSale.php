@@ -38,11 +38,9 @@ class EditSale extends Component implements HasActions, HasSchemas
                     ->columns(2)
                     ->schema([
                         Select::make('customer_id')
-                            ->relationship('customer', 'name')
-                            ->disabled(),
+                            ->relationship('customer', 'name'),
                         Select::make('payment_method_id')
-                            ->relationship('paymentMethod', 'name')
-                            ->disabled(),
+                            ->relationship('paymentMethod', 'name'),
                         TextInput::make('total')
                             ->required()
                             ->numeric(),
