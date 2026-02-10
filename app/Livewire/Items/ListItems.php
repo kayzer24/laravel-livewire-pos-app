@@ -28,7 +28,7 @@ class ListItems extends Component implements HasActions, HasSchemas, HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->query(fn (): Builder => Item::query())
+            ->query(fn (): Builder => Item::query()->orderByDesc('items.created_at'))
             ->columns([
                 TextColumn::make('name')->searchable()->sortable(),
                 TextColumn::make('sku')->label('SKU')->searchable()->sortable(),
