@@ -5,6 +5,7 @@ namespace App\Livewire\Sales;
 use App\Models\Sale;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
@@ -51,6 +52,23 @@ class EditSale extends Component implements HasActions, HasSchemas
                             ->required()
                             ->numeric()
                             ->default(0),
+                    ]),
+                Section::make('Order Items')
+                    ->columns(1)
+                    ->schema([
+                        Repeater::make('saleItems')
+                            ->relationship()
+                            ->columns(3)
+                            ->schema([
+                                Select::make('item_id')
+                                    ->relationship('item', 'name'),
+                                TextInput::make('quantity')->numeric()->readOnly(),
+                                TextInput::make('price')->numeric()
+                                    ->readOnly(),
+                            ])
+                            ->orderColumn('sort')
+
+                            ->disabled(),
                     ]),
             ])
             ->statePath('data')
