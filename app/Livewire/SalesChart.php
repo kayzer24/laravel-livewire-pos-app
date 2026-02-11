@@ -20,11 +20,11 @@ class SalesChart extends ChartWidget
 
     protected string $color = 'info';
 
-    //public ?string $filter = 'today';
+    // public ?string $filter = 'today';
 
     protected function getData(): array
     {
-        //$activeFilter = $this->filter;
+        // $activeFilter = $this->filter;
 
         $startDate = $this->filters['startDate'] ?? null;
         $endDate = $this->filters['endDate'] ?? null;
@@ -41,12 +41,12 @@ class SalesChart extends ChartWidget
             'datasets' => [
                 [
                     'label' => 'Sales registered',
-                    'data' => $data->map(fn(TrendValue $value) => $value->aggregate),
+                    'data' => $data->map(fn (TrendValue $value) => $value->aggregate),
                     //                    'backgroundColor' => '#36A2EB',
                     //                    'borderColor' => '#9BD0F5',
                 ],
             ],
-            'labels' => $data->map(fn(TrendValue $value) => $value->date),
+            'labels' => $data->map(fn (TrendValue $value) => $value->date),
         ];
     }
 
@@ -63,15 +63,14 @@ class SalesChart extends ChartWidget
         ]);
     }
 
-//    protected function getFilters(): ?array
-//    {
-//        return [
-//            'today' => 'Today',
-//            'week' => 'Last week',
-//            'month' => 'Last month',
-//            'year' => 'This year',
-//        ];
-//    }
-
+    //    protected function getFilters(): ?array
+    //    {
+    //        return [
+    //            'today' => 'Today',
+    //            'week' => 'Last week',
+    //            'month' => 'Last month',
+    //            'year' => 'This year',
+    //        ];
+    //    }
 
 }
